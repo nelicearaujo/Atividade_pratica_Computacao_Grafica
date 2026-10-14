@@ -1,76 +1,51 @@
-# Sistema Solar com Composição de Matrizes
+## `Aula_Transformacoes/LEIA_PRIMEIRO.md`
 
-Atividade prática da aula de Transformações Geométricas, desenvolvida com Python, PyGame e PyOpenGL.
+# Material da aula de Transformações Geométricas
 
-O projeto implementa um mini sistema solar animado usando matrizes de translação, rotação e escala. A cena contém um Sol, um planeta que orbita o Sol e uma Lua que orbita o planeta acompanhando o seu movimento.
+- `Aula_Transformacoes_OpenGL_26_Slides.pptx`: slides com notas e roteiro das demonstrações.
+- `alunos/`: framework didático, 3 demonstrações, arquivo inicial da atividade, enunciado e instruções para Windows/macOS. **Entregue apenas esta pasta à turma.**
+- `professor/`: solução de referência, captura esperada e rubrica.
 
-## Integrantes
+A aula continua o checkpoint `test-3.py` do repositório: as mesmas classes (`Base`, `Input`, `Utils`, `Attribute`, `Uniform`, `Matrix`) e a mesma convenção de multiplicação (global à esquerda, local à direita).
 
-- João Vicente Batista da Cunha
-- Nelice Gomes Araujo
+Diferença importante em relação ao `core/` da raiz do repositório: o `alunos/core/uniform.py` suporta o tipo `mat4`, que o `test-3.py` precisa. O `alunos/core/base.py` também pede OpenGL 3.3 core e trata ESC, captura (tecla P) e execução por N quadros.
 
-## Demonstração
+As classes e convenções seguem o livro *Developing Graphics Frameworks with Python and OpenGL*, de Lee Stemkoski e Michael Pascale (CRC Press, 2022), capítulo 3.
 
-![Resultado da atividade](capturas/resultado.png)
+Próxima aula: `Aula_GrafoCena` (capítulo 4), que transforma as matrizes desta aula em uma árvore de objetos, e depois `Aula_Texturas` (capítulo 5).
 
-## Requisitos
+---
 
-- Python 3;
-- OpenGL 3.3 ou superior;
-- Dependências listadas em `requirements.txt`.
+## `Aula_GrafoCena/LEIA_PRIMEIRO.md`
 
-## Como executar
+# Material da aula de Grafo de Cena
 
-No terminal, dentro da pasta `alunos`, instale as dependências:
+Ordem das aulas do repositório:
 
-```bash
-pip install -r requirements.txt
-```
+1. `Aula_Transformacoes`: matrizes 4x4, composição, global x local e projeção (capítulo 3).
+2. **`Aula_GrafoCena`**: Object3D, Scene, Camera, Mesh, Geometry, Material e Renderer (capítulo 4).
+3. `Aula_Texturas`: Texture, UV e TextureMaterial sobre o mesmo framework (capítulo 5).
 
-Depois, execute a atividade:
+- `Aula_GrafoCena_OpenGL_24_Slides.pptx`: slides com notas e roteiro das demonstrações.
+- `alunos/`: framework, 3 demonstrações, arquivo inicial da atividade, enunciado e instruções. **Entregue apenas esta pasta à turma.**
+- `professor/`: solução de referência, captura esperada e rubrica.
 
-```bash
-python atividade_sistema_solar.py
-```
+O framework é o mesmo usado na Aula_Texturas (mesmos nomes de classes e métodos), mas escrito por extenso e comentado para leitura em aula. Em vez de texturas, usa `BasicMaterial` com cores por vértice.
 
-Também é possível salvar uma captura pela linha de comando:
+As classes e convenções seguem o livro *Developing Graphics Frameworks with Python and OpenGL*, de Lee Stemkoski e Michael Pascale (CRC Press, 2022), capítulo 4.
 
-```bash
-python atividade_sistema_solar.py --frames 1 --screenshot capturas/resultado.png
-```
+---
 
-## Controles
+## `Aula_Texturas/LEIA_PRIMEIRO.md`
 
-- `Seta para cima`: aumenta a velocidade da órbita do planeta;
-- `Seta para baixo`: diminui a velocidade da órbita do planeta;
-- `P`: salva uma captura em `capturas/resultado.png`;
-- `ESC`: encerra a execução.
+# Material da aula de Texturas
 
-A velocidade da órbita nunca fica negativa.
+Pré-requisito: `Aula_GrafoCena` (capítulo 4). Esta aula usa Object3D, Scene, Camera, Mesh, Geometry, Material e Renderer sem reapresentá-los.
 
-## Composição das transformações
+Atividade: cubo com textura `mosaico.png` e um satélite filho com `grade_uv.png` repetida 2x2 (`repeatUV`), orbitando o cubo e girando no próprio eixo, com velocidade controlada pelas setas. O retângulo aceita `--repetir 2` para demonstrar o slide 19.
 
-As transformações são aplicadas aos vértices da direita para a esquerda. Por isso, a matriz do planeta é composta como:
+A pasta alunos contém o framework didático, exemplos, imagens locais, atividade e instruções Windows/macOS. Entregue apenas essa pasta à turma.
 
-```text
-R_orbita @ T_orbita @ R_propria @ S
-```
+A pasta professor contém a solução de referência e a rubrica. Use o mesmo ambiente Python da pasta alunos para executar a solução.
 
-Em que:
-
-- `S` reduz o tamanho do objeto;
-- `R_propria` faz o planeta girar em torno do próprio eixo;
-- `T_orbita` afasta o planeta do centro até o raio da órbita;
-- `R_orbita` gira a posição já transladada ao redor do Sol.
-
-A órbita utiliza `R @ T` porque a translação deve acontecer antes da rotação orbital. Assim, o planeta é deslocado para a distância correta do Sol e depois essa posição é rotacionada em torno da origem, formando a órbita.
-
-A rotação própria fica à direita da translação porque deve ser aplicada primeiro, ainda no sistema de coordenadas local do planeta, antes que ele seja deslocado para a órbita.
-
-## Estrutura principal
-
-- `atividade_sistema_solar.py`: código da atividade e animação da cena;
-- `core/`: classes de suporte para janela, entrada, matrizes e shaders;
-- `formas.py` e `objeto.py`: criação e desenho dos objetos;
-- `capturas/`: imagens geradas durante a execução;
-- `requirements.txt`: dependências do projeto.
+As classes e convenções seguem o livro *Developing graphics frameworks with Python and OpenGL*, de Lee Stemkoski e Michael Pascale, CRC Press, 2022. O README explica as adaptações de compatibilidade do subconjunto fornecido.
